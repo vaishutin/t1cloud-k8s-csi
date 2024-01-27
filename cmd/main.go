@@ -42,8 +42,16 @@ func main() {
 }
 
 func startDriver() {
-	drv := driver.CreateDriver(endpointFlag)
+	drv, err := driver.CreateDriver(endpointFlag)
 	klog.Infof("Create driver on %s", endpointFlag)
 
-	drv.Setup()
+	if err != nil {
+		panic(fmt.Errorf("Create driver error: [%v]", err))
+	}
+
+	err = drv.Setup("my")
+
+	if err != nil {
+		panic(fmt.Errorf("Create driver error: [%v]", err))
+	}
 }
